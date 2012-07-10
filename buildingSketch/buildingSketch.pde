@@ -14,12 +14,14 @@ void setup() {
   int yCounter = 0;
   for(int x=0;x<cols;x++) {
    for(int y=0;y<rows;y++) {
+     streetWidth = int(random(10));
      buildings[x][y] = new Building(
-       x*(tileWidth+streetWidth),
-       y*(tileHeight+streetWidth),
+       (x*tileWidth)+streetWidth,
+       (y*tileHeight)+streetWidth,
        tileWidth,
        150,
-       boolean(int(random(2))));
+       boolean(int(random(2)))
+      );
    }
   }
 }

@@ -7,6 +7,7 @@ class Building {
  int posY;
  boolean hasDisplay;
  boolean displaySide;
+ float displayWalk;
   
  Building(int _x, int _y, int _width, int _maxHeight, boolean _disp) {
    maxHeight = _maxHeight;
@@ -21,12 +22,12 @@ class Building {
  void draw(boolean offsetTile) {
    updateBuilding((int)random(0,7));
    pushMatrix();
-
      if(offsetTile) {
        translate(posX+(width/2), posY);
      } else { translate(posX,posY); }
    
      for( int i=0; i<height; i++) {
+       colorMode(RGB);
        noStroke();
        fill(map(i, 0,maxHeight,0,255),255,255);
        quad( 0, (width/2)-i,
@@ -35,16 +36,17 @@ class Building {
              width/2, width-i
         );     
      }
+     colorMode(HSB);
      if(hasDisplay) {
        if(displaySide) { //left
-        fill(255,0,0);
+        fill(displayWalk,127,255);
         quad( 0, (width/2)-height,
              width/2, width-height,
              width/2, (width+(height/8))-height,
              0, ((width/2)+(height/8))-height
         );     
        } else { // right
-        fill(0,255,0);
+        fill(displayWalk,127,255);
         quad(width/2, (width)-height,
              width, (width/2)-height,
              width, ((width/2)+(height/8))-height,
@@ -59,6 +61,7 @@ class Building {
    if(height<maxHeight) {
      height += _incr;
    }
+   displayWalk = (displayWalk + int(random(10)))%255;
  }
   
 }
